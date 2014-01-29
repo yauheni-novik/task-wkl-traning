@@ -17,11 +17,11 @@ public abstract class AbstractFileService {
 	private final static String LINE_SEPARATOR = "line.separator";
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger
 			.getLogger(AbstractFileService.class);
-	protected static void addContentToFile(File file, String content, String regexp)
+	
+	protected static void addContentToFile(File file, String content)
 			throws IOException {
 		FileWriter fileWritter = new FileWriter(file, true);
 		BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-		content = filterByRegexp(content, regexp);
 		bufferWritter.write(content);
 		bufferWritter.close();
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractFileService {
 		}
 	}
 
-	protected static String filterByRegexp(String content, String regexp) {
+	protected static StringBuilder filterByRegexp(StringBuilder content, String regexp) {
 		StringBuilder result = new StringBuilder();
 		Pattern pattern = Pattern.compile(regexp);
 		Matcher matcher = pattern.matcher(content);
@@ -52,6 +52,6 @@ public abstract class AbstractFileService {
 			result.append(matcher.group())
 					.append(System.getProperty(LINE_SEPARATOR));
 		}
-		return result.toString();
+		return result;
 	}
 }

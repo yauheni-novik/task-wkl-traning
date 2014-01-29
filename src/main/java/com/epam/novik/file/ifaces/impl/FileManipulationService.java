@@ -10,7 +10,9 @@ public class FileManipulationService extends AbstractFileService {
 	public void copyFromFileToFile(File fromFile, File toFile, String regexp)
 			throws IOException {
 		StringBuilder fromContent = getFileContent(fromFile);
-		addContentToFile(toFile, fromContent.toString(), regexp);
+		fromContent = filterByRegexp(fromContent, regexp);
+		fromContent.reverse();
+		addContentToFile(toFile, fromContent.toString());
 	}
 
 }
