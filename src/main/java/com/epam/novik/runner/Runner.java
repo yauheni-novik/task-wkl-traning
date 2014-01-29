@@ -11,6 +11,8 @@ public class Runner {
 			.getLogger(Runner.class);
 
 	public static void main(String[] args) {
+		log.info(System.getProperty("user.dir") + File.separator + args[0] + "from");
+		log.info(System.getProperty("user.dir") + File.separator + args[0] + "to");
 		File fromFile = new File(System.getProperty("user.dir") + File.separator + args[0]);
 		File toFile = new File(System.getProperty("user.dir") + File.separator + args[1]);
 		try {
