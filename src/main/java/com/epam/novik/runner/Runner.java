@@ -11,8 +11,8 @@ public class Runner {
 			.getLogger(Runner.class);
 
 	public static void main(String[] args) {
-		File fromFile = new File("files/from.txt");
-		File toFile = new File("files/to.txt");
+		File fromFile = new File(args[0]);
+		File toFile = new File(args[1]);
 		try {
 			AbstractFileService fileService = new FileManipulationService();
 			fileService.copyFromFileToFile(fromFile, toFile, "");
