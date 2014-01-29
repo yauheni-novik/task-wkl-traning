@@ -13,8 +13,8 @@ public class Runner {
 	public static void main(String[] args) {
 		log.info(System.getProperty("user.dir") + File.separator + args[0] + "from");
 		log.info(System.getProperty("user.dir") + File.separator + args[0] + "to");
-		File fromFile = new File(System.getProperty("user.dir") + File.separator + args[0]);
-		File toFile = new File(System.getProperty("user.dir") + File.separator + args[1]);
+		File fromFile = new File(System.getProperty("user.dir") + File.separator + "files\from.txt");
+		File toFile = new File(System.getProperty("user.dir") + File.separator + "files\to.txt");
 		try {
 			AbstractFileService fileService = new FileManipulationService();
 			fileService.copyFromFileToFile(fromFile, toFile, "");
