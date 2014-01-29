@@ -10,17 +10,18 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public abstract class AbstractFileService {
 	public abstract void copyFromFileToFile(File from, File to, String regexp)
 			throws IOException;
-
-	private final static String LINE_SEPARATOR_KEY = "line.separator";
-
-	protected static void addContentToFile(File file, String content)
+	private final static String LINE_SEPARATOR = "line.separator";
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger
+			.getLogger(AbstractFileService.class);
+	protected static void addContentToFile(File file, String content, String regexp)
 			throws IOException {
 		FileWriter fileWritter = new FileWriter(file, true);
 		BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-		//content = filterByRegexp(content, regexp);
+		content = filterByRegexp(content, regexp);
 		bufferWritter.write(content);
 		bufferWritter.close();
 	}
@@ -33,7 +34,7 @@ public abstract class AbstractFileService {
 			while (scanner.hasNextLine()) {
 				result.append(scanner.nextLine());
 				if (scanner.hasNextLine()) {
-					result.append(System.getProperty(LINE_SEPARATOR_KEY));
+					result.append(System.getProperty(LINE_SEPARATOR));
 				}
 			}
 			return result;
@@ -43,19 +44,14 @@ public abstract class AbstractFileService {
 	}
 
 	protected static String filterByRegexp(String content, String regexp) {
-		StringBuilder res = new StringBuilder();
-
+		StringBuilder result = new StringBuilder();
 		Pattern pattern = Pattern.compile(regexp);
-		// in case you would like to ignore case sensitivity,
-		// you could use this statement:
-		// Pattern pattern = Pattern.compile("\\s+", Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(content);
-
+		
 		while (matcher.find()) {
-			res.append(matcher.group(1)).append(" - ").append(matcher.group())
-					.append(System.getProperty(LINE_SEPARATOR_KEY));
+			result.append(matcher.group())
+					.append(System.getProperty(LINE_SEPARATOR));
 		}
-
-		return res.toString();
+		return result.toString();
 	}
 }
